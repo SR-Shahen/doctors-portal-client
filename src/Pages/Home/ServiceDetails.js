@@ -3,7 +3,6 @@ import React from 'react';
 const ServiceDetails = ({ img, title }) => {
     return (
         <div class="card card-compact w-97 px-10 text-center shadow-xl">
-
             <figure class="px-10 pt-10">
                 <img src={img} alt="Shoes" class="rounded-xl" />
             </figure>
