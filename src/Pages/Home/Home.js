@@ -1,17 +1,17 @@
 import React from 'react';
+import Appointment from './Appointment';
 import Banner from './Banner';
 import Info from './Info';
 import Service from './Service';
-import ServiceBanner from './ServiceBanner';
 
 const Home = () => {
     return (
-        <div className='pl-12'>
+        <div className='px-12'>
 
             <Banner></Banner>
             <Info></Info>
             <Service></Service>
-            <ServiceBanner></ServiceBanner>
+            <Appointment></Appointment>
         </div>
     );
 };
