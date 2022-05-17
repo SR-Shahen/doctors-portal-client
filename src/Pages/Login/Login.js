@@ -1,34 +1,45 @@
 import React from 'react';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
+import Loading from '../Shared/Loading';
 
 const Login = () => {
     const [
         signInWithGoogle,
+        gUser,
+        gLoading,
+        gError
+    ] = useSignInWithGoogle(auth);
+    const [
+        createUserWithEmailAndPassword,
         user,
         loading,
-        error
-    ] = useSignInWithGoogle(auth);
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = data => {
-        console.log(data)
-    };
-    if (user) {
+
+
+    if (gLoading || loading) {
+        return <Loading></Loading>
+    }
+    let errorMessage;
+    if (gError || error) {
+        errorMessage = <p className='text-sm text-red-500'>{gError?.message || error?.message}</p>
+    }
+    if (gUser || user) {
         console.log(user);
     }
+    const onSubmit = data => {
+        console.log(data)
+        createUserWithEmailAndPassword(data.email, data.password)
+    };
+
     return (
         <div className='flex h-screen items-center justify-center'>
             <div className="card  w-96  shadow-xl">
                 <div className="card-body justify-center">
                     <h2 className="text-center font-bold text-xl">Login</h2>
-                    <form >
-
-
-
-                    </form>
-
-
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
@@ -78,10 +89,9 @@ const Login = () => {
 
                             </label>
                         </div>
+                        {errorMessage}
                         <input className='btn w-full' type="submit" value="Login" />
                         <input />
-
-                        <input type="submit" />
                     </form>
 
                     <div className="divider">OR</div>
