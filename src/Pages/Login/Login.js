@@ -3,9 +3,12 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-fireba
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    let from = location.state?.from?.pathname || "/";
     const [
         signInWithGoogle,
         gUser,
@@ -29,7 +32,7 @@ const Login = () => {
         errorMessage = <p className='text-sm text-red-500'>{gError?.message || error?.message}</p>
     }
     if (gUser || user) {
-        console.log(user);
+        navigate(from, { replace: true });
     }
     const onSubmit = data => {
         console.log(data)
