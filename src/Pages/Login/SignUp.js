@@ -22,7 +22,7 @@ const SignUp = () => {
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
-    const [token] = useToken(gUser || user)
+    const [token] = useToken(gUser || user);
     if (gLoading || loading || updating) {
         return <Loading></Loading>
     }
