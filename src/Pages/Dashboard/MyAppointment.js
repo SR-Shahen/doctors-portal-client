@@ -10,7 +10,7 @@ const MyAppointment = () => {
     const [appointments, setAppointments] = useState([]);
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/booking?patient=${user.email}`, {
+            fetch(`https://desolate-coast-39419.herokuapp.com/booking?patient=${user.email}`, {
                 method: "GET",
                 headers: {
                     'authorization': `bearer ${localStorage.getItem('accessToken')}`
